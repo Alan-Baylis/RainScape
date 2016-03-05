@@ -7,9 +7,12 @@ public class Rain : MonoBehaviour
     public float rainInterval;
     
     private float prevRainTime;
+    private SpriteRenderer spriteRenderer;
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         prevRainTime = Time.time;
+        spriteRenderer.enabled = false;
     }
 
     // Update is called once per frame
@@ -17,6 +20,8 @@ public class Rain : MonoBehaviour
     {
         if (Time.time - prevRainTime >= rainInterval)
         {
+            spriteRenderer.enabled = true;
+            
             var hit = Physics2D.Raycast(Camera.main.transform.position, -Vector2.up);
             if (hit.collider)
             {
