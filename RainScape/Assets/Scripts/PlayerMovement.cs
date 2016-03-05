@@ -14,7 +14,10 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        var moveSpeed = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
-        transform.Rotate(0, speed, 0);
-	}
+        var moveHori = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
+        var moveVert = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
+        
+        var curPos = transform.position;
+        transform.position = new Vector3(curPos.x + moveHori, curPos.y + moveVert, 0);
+    }
 }
