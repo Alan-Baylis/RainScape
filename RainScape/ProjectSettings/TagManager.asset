@@ -44,3 +44,6 @@ TagManager:
   - name: NPC
     uniqueID: 2776400875
     locked: 0
+  - name: Rain
+    uniqueID: 398098681
+    locked: 0

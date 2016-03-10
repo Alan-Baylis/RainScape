@@ -3,36 +3,30 @@ using System.Collections;
 
 public class Rain : MonoBehaviour
 {
-    public Transform player;
-    public float rainInterval;
+    public float rainShowDuration;
     
-    private float prevRainTime;
-    private SpriteRenderer spriteRenderer;
+    private float spawnTime;
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        prevRainTime = Time.time;
-        spriteRenderer.enabled = false;
+        spawnTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - prevRainTime >= rainInterval)
+        var hit = Physics2D.Raycast(transform.position, -Vector2.up);
+        if (hit.collider)
         {
-            spriteRenderer.enabled = true;
-            
-            var hit = Physics2D.Raycast(Camera.main.transform.position, -Vector2.up);
-            if (hit.collider)
+            var hitGameObject = hit.collider.gameObject;
+            if (hitGameObject.CompareTag("Player"))
             {
-                var hitGameObject = hit.collider.gameObject;
-                if (hitGameObject.CompareTag("Player"))
-                {
-                    Destroy(hitGameObject);
-                }
+                Destroy(hitGameObject);
             }
+        }
             
-            prevRainTime = Time.time;
+        if (Time.time - spawnTime >= rainShowDuration)
+        {
+            Destroy(gameObject);
         }
     }
 }
