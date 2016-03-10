@@ -3,9 +3,11 @@ using System.Collections;
 
 public class NPCMovement : MonoBehaviour
 {
+    public GameObject player;
     public Transform spawnPoint;
     public Transform destPoint;
     public float speed;
+    public float umbrellaAlpha;
     
     private bool wasOnScreen;
     
@@ -37,6 +39,26 @@ public class NPCMovement : MonoBehaviour
                             curPos.x < -viewportHalfWidth - NPCHalfWidth))
         {
             Destroy(gameObject);
+        }
+    }
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Color color = GetComponent<SpriteRenderer>().color;
+            color.a = umbrellaAlpha;
+            GetComponent<SpriteRenderer>().color = color;
+        }
+    }
+    
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Color color = GetComponent<SpriteRenderer>().color;
+            color.a = 1.0f;
+            GetComponent<SpriteRenderer>().color = color;
         }
     }
 }
