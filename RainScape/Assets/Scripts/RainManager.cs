@@ -3,7 +3,6 @@ using System.Collections;
 
 public class RainManager : MonoBehaviour
 {
-    public GameObject player;
     public GameObject rain;
     public int rainRowCount;
     public int rainColCount;
@@ -39,7 +38,7 @@ public class RainManager : MonoBehaviour
             var posY = Random.Range(minY, maxY);
             var posX = Random.Range(minX, maxX);
             
-            var rainObject = Instantiate(rain, new Vector3(posX, posY, 0), Quaternion.identity) as GameObject;
+            Instantiate(rain, new Vector3(posX, posY, 0), Quaternion.identity);
         }
     }
 }

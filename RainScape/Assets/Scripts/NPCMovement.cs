@@ -3,7 +3,6 @@ using System.Collections;
 
 public class NPCMovement : MonoBehaviour
 {
-    public GameObject player;
     public Transform spawnPoint;
     public Transform destPoint;
     public float speed;

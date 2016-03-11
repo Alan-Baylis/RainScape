@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591b1aa7767f44fe5a61c3a917382d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rainShowDuration: 0.2
+  rainShowDuration: 1
 --- !u!212 &21296684
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -84,11 +84,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rainShowDuration
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SortingLayerID
       value: 398098681
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
