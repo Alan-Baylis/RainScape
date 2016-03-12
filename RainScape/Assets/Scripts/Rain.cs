@@ -1,14 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Rain : MonoBehaviour
 {
     public float rainShowDuration;
+    public float endingScaleRatio;
     
     private float spawnTime;
+    private float scaleChangeRate;
     void Start()
     {
         spawnTime = Time.time;
+        
+        // Assumes the x and y scales are the same
+        scaleChangeRate = (transform.localScale.x - transform.localScale.x * endingScaleRatio) / rainShowDuration;
+    }
+    
+    void Update()
+    {
+        if (Time.time - spawnTime >= rainShowDuration) return;
+        
+        var curScale = transform.localScale;
+        var scaleDiff = scaleChangeRate * Time.deltaTime;
+        
+        var newScale = new Vector3(curScale.x - scaleDiff, curScale.y - scaleDiff, curScale.z - scaleDiff);
+        transform.localScale = newScale;
     }
 
     void FixedUpdate()
