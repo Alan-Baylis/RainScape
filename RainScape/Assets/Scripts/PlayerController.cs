@@ -1,14 +1,34 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed;
-
-    // Use this for initialization
+    public int health;
+    
+    
+    private float scaleChangeRate;
+    private float speedChangeRate;
+    
+    public void getHit()
+    {
+        health--;
+        
+        var curScale = transform.localScale;
+        var newScale = new Vector3(curScale.x - scaleChangeRate, curScale.y - scaleChangeRate, curScale.z - scaleChangeRate);
+        transform.localScale = newScale;
+        
+        speed -= speedChangeRate;
+        
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     void Start()
     {
-
+        scaleChangeRate = transform.localScale.x / health;
+        speedChangeRate = speed / health;
     }
 
     // Update is called once per frame

@@ -7,9 +7,11 @@ public class Rain : MonoBehaviour
     
     private float spawnTime;
     private float scaleChangeRate;
+    private PlayerController player;
     void Start()
     {
         spawnTime = Time.time;
+        player = FindObjectOfType<PlayerController>();
         
         // Assumes the x and y scales are the same
         scaleChangeRate = (transform.localScale.x - transform.localScale.x * endingScaleRatio) / rainShowDuration;
@@ -45,7 +47,7 @@ public class Rain : MonoBehaviour
                 var NPCHit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, layerMask);
                 if (!NPCHit.collider)
                 {
-                    Destroy(hit.collider.gameObject);
+                    player.getHit();
                 }
             }
             
