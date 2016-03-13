@@ -2,22 +2,20 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    public int health;
+    public float defaultSpeed;
+    public int defaultHealth;
     
     
-    private float scaleChangeRate;
-    private float speedChangeRate;
-    
+    private Vector3 defaultScale;
+    private int health;
+    private float speed;
     public void getHit()
     {
         health--;
         
-        var curScale = transform.localScale;
-        var newScale = new Vector3(curScale.x - scaleChangeRate, curScale.y - scaleChangeRate, curScale.z - scaleChangeRate);
-        transform.localScale = newScale;
-        
-        speed -= speedChangeRate;
+        var logRatio = getLogRatio(health, defaultHealth);
+        transform.localScale = defaultScale * logRatio;
+        speed = defaultSpeed * logRatio;
         
         if (health <= 0)
         {
@@ -27,8 +25,9 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
-        scaleChangeRate = transform.localScale.x / health;
-        speedChangeRate = speed / health;
+        health = defaultHealth;
+        speed = defaultSpeed;
+        defaultScale = transform.localScale;
     }
 
     void Update()
@@ -62,5 +61,11 @@ public class PlayerController : MonoBehaviour
             curPos.y = viewportHalfHeight - playerHalfHeight;
             
         transform.position = curPos;
+    }
+    
+    float getLogRatio(float curVal, float maxVal)
+    {
+        // When curval is 0, I want log result to be 0. Hence + 1
+        return Mathf.Log(curVal + 1, maxVal + 1);
     }
 }
