@@ -29,6 +29,7 @@ public class RainManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(rainInterval);
+            //yield return null;
             
             var maxY = rowInterval * rainRowCount / 2.0f;
             var minY = -maxY;
