@@ -34,7 +34,6 @@ public class Map : MonoBehaviour
         }
     }
     
-    // Pre: actualPos must be valid
     public Vector2 GetTilePos(Vector2 actualPos)
     {
         float x = actualPos.x;
@@ -45,7 +44,6 @@ public class Map : MonoBehaviour
         return new Vector2(tileX, tileY);
     }
     
-    // Pre: tilePos must be valid
     public Vector2 GetActualPos(Vector2 tilePos)
     {
         float actualX = cellWidth / 2.0f + cellWidth * tilePos.x;
@@ -54,8 +52,8 @@ public class Map : MonoBehaviour
         return new Vector2(actualX, actualY);
     }
     
-    public bool IsTileValid(Vector2 tilePos)
+    public bool IsTileWithinVerticalBound(Vector2 tilePos)
     {
-        return tilePos.x >= 0 && tilePos.x < colCount && tilePos.y >= 0 && tilePos.y < rowCount;
+        return tilePos.y >= 0 && tilePos.y < rowCount;
     }
 }
