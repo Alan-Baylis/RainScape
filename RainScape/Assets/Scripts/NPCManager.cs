@@ -5,6 +5,7 @@ public class NPCManager : MonoBehaviour
 {
     public Transform[] spawnPoints;
     public Transform[] destPoints;
+    public Map map;
     
     // TODO: improve perf by reusing npcs instead of keep creating/destroying new ones
     public GameObject NPC;
@@ -35,6 +36,7 @@ public class NPCManager : MonoBehaviour
             var NPCScript = NPCObject.GetComponent<NPCMovement>();
             NPCScript.spawnPoint = spawnPoint;
             NPCScript.destPoint = destPoint;
+            NPCScript.map = map;
         }
     }
 }

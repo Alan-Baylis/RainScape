@@ -41,24 +41,24 @@ public class PlayerController : MonoBehaviour
     {
         var curPos = transform.position;
         
-        var viewportHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
-        var viewportHalfHeight = Camera.main.orthographicSize;
+        var viewportWidth = Camera.main.orthographicSize * Screen.width / Screen.height * 2.0f;
+        var viewportHeight = Camera.main.orthographicSize * 2.0f;
 
         var renderer = GetComponent<SpriteRenderer>();
         var playerHalfWidth = renderer.bounds.size.x * 0.5f;
         var playerHalfHeight = renderer.bounds.size.y * 0.5f;
 
-        if (curPos.x < -viewportHalfWidth + playerHalfWidth)
-            curPos.x = -viewportHalfWidth + playerHalfWidth;
+        if (curPos.x < 0 + playerHalfWidth)
+            curPos.x = 0 + playerHalfWidth;
 
-        if (curPos.x > viewportHalfWidth - playerHalfWidth)
-            curPos.x = viewportHalfWidth - playerHalfWidth;
+        if (curPos.x > viewportWidth - playerHalfWidth)
+            curPos.x = viewportWidth - playerHalfWidth;
 
-        if (curPos.y < -viewportHalfHeight + playerHalfHeight)
-            curPos.y = -viewportHalfHeight + playerHalfHeight;
+        if (curPos.y < 0 + playerHalfHeight)
+            curPos.y = 0 + playerHalfHeight;
 
-        if (curPos.y > viewportHalfHeight - playerHalfHeight)
-            curPos.y = viewportHalfHeight - playerHalfHeight;
+        if (curPos.y > viewportHeight - playerHalfHeight)
+            curPos.y = viewportHeight - playerHalfHeight;
             
         transform.position = curPos;
     }

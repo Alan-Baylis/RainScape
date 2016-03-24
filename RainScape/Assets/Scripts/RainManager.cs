@@ -15,10 +15,10 @@ public class RainManager : MonoBehaviour
 
     IEnumerator PutRain()
     {            
-        var maxY = Camera.main.orthographicSize;
-        var minY = -maxY;
-        var maxX = Camera.main.orthographicSize * Screen.width / Screen.height;
-        var minX = -maxX;
+        var maxY = Camera.main.orthographicSize * 2.0f;
+        var minY = 0;
+        var maxX = Camera.main.orthographicSize * Screen.width / Screen.height * 2.0f;
+        var minX = 0;
         
         while (true)
         {

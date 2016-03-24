@@ -7,6 +7,7 @@ public class NPCMovement : MonoBehaviour
     public Transform destPoint;
     public float speed;
     public float umbrellaAlpha;
+    public Map map;
     
     private bool wasOnScreen;
     
@@ -20,8 +21,12 @@ public class NPCMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var curPos = transform.position;
-        var dir = (destPoint.position - curPos).normalized;
+        Vector2 curPos = transform.position;
+        
+        var destPos = map.GetActualPos(new Vector2(0, 0));
+        //var dir = (destPos - curPos).normalized;
+        
+        var dir = ((Vector2) destPoint.position - curPos).normalized;
         var move = dir * speed * Time.deltaTime;
         
         transform.position = new Vector3(curPos.x + move.x, curPos.y + move.y, 0);
@@ -29,13 +34,13 @@ public class NPCMovement : MonoBehaviour
         
         var renderer = GetComponent<SpriteRenderer>();
         var NPCHalfWidth = renderer.bounds.size.x * 0.5f;
-        var viewportHalfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
+        var viewportWidth = Camera.main.orthographicSize * Screen.width / Screen.height * 2.0f;
         
-        if (curPos.x < viewportHalfWidth && curPos.x > -viewportHalfWidth)
+        if (curPos.x < viewportWidth && curPos.x > 0)
             wasOnScreen = true;
             
-        if (wasOnScreen && (curPos.x > viewportHalfWidth + NPCHalfWidth || 
-                            curPos.x < -viewportHalfWidth - NPCHalfWidth))
+        if (wasOnScreen && (curPos.x > viewportWidth + NPCHalfWidth || 
+                            curPos.x < 0 - NPCHalfWidth))
         {
             Destroy(gameObject);
         }
