@@ -28,8 +28,6 @@ public class Map : MonoBehaviour
             {
                 var posY = cellHeight / 2.0f + cellHeight * j;
                 cells[i].Add(new Vector2(posX, posY));
-                
-                print(posX + ", " + posY + "= " + GetTilePos(new Vector2(posX, posY)));
             }
         }
     }
@@ -55,5 +53,15 @@ public class Map : MonoBehaviour
     public bool IsTileWithinVerticalBound(Vector2 tilePos)
     {
         return tilePos.y >= 0 && tilePos.y < rowCount;
+    }
+    
+    public float GetCellWidth()
+    {
+        return cellWidth;
+    }
+    
+    public float GetCellHeight()
+    {
+        return cellHeight;
     }
 }
