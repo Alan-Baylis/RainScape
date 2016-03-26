@@ -345,12 +345,12 @@ namespace dotBunny.Unity
             proc.StartInfo.Arguments = " -n -b \"com.microsoft.VSCode\" --args " + args;
             proc.StartInfo.UseShellExecute = false;
 #elif UNITY_EDITOR_WIN
-            proc.StartInfo.FileName = "code";
+			proc.StartInfo.FileName = "C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe";
             proc.StartInfo.Arguments = args;
             proc.StartInfo.UseShellExecute = false;
 #else
             //TODO: Allow for manual path to code?
-            proc.StartInfo.FileName = "code";
+			proc.StartInfo.FileName = "C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe";
             proc.StartInfo.Arguments = args;
             proc.StartInfo.UseShellExecute = false;
 #endif
