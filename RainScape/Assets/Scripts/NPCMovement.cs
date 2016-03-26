@@ -68,7 +68,7 @@ public class NPCMovement : MonoBehaviour
         var widthDiffRatio = Mathf.Abs(1 - destActualPos.x / curPos.x);
         var heightDiffRatio = Mathf.Abs(1 - destActualPos.y / curPos.y);
         
-        if (widthDiffRatio < 0.05f && heightDiffRatio < 0.05f)
+        if ((widthDiffRatio < 0.05f && heightDiffRatio < 0.05f) || npcOnCur || npcOnDest)
         {
             if (npcOnDest)
             {
@@ -100,9 +100,16 @@ public class NPCMovement : MonoBehaviour
                 float minDist = 10000;
                 foreach (var direction in directions)
                 {
-                    if (npcOnCur && direction.y == 0) continue;
+                    if (npcOnCur)
+                    {
+                        var relPosOfOther = GetRelPosOfOther(npcOnCur);
+                        if (direction.x == relPosOfOther.x || direction.y == relPosOfOther.y)
+                        {
+                            continue;
+                        }
+                    }
                     
-                    var potentialDestTile = destTilePos + direction;
+                    var potentialDestTile = curTilePos + direction;
                     var npcOnPotDest = npcManager.GetOtherNPCOnTile(gameObject.GetInstanceID(), potentialDestTile);
                     if (!map.IsTileWithinVerticalBound(potentialDestTile) || npcOnPotDest)
                     {
@@ -166,11 +173,13 @@ public class NPCMovement : MonoBehaviour
     
     public void WuhWuhSlowDown()
     {
-        isSlowed = true;
-        GetComponent<SpriteRenderer>().color = Color.blue;
-        
         if (slowDownTimer <= 0.0f)
         {
+            isSlowed = true;
+            GetComponent<SpriteRenderer>().color = Color.blue;
+            speed *= slowDownSpeedRatio;
+            slowDownTimer = slowDownDuration;
+            
             StartCoroutine(SlowDown());
         }
         else
@@ -181,10 +190,6 @@ public class NPCMovement : MonoBehaviour
     
     IEnumerator SlowDown()
     {
-        speed *= slowDownSpeedRatio;
-        
-        slowDownTimer = slowDownDuration;
-
         while (slowDownTimer > 0.0f)
         {
             yield return new WaitForSeconds(slowDownTimer);
@@ -194,5 +199,17 @@ public class NPCMovement : MonoBehaviour
         speed /= slowDownSpeedRatio;
         isSlowed = false;
         GetComponent<SpriteRenderer>().color = Color.white;        
+    }
+    
+    Vector2 GetRelPosOfOther(GameObject otherNPC)
+    {
+        var oPos = otherNPC.transform.position;
+        var myPos = transform.position;
+        var relPos = Vector2.zero;
+        
+        relPos += new Vector2(oPos.x - myPos.x, 0).normalized;
+        relPos += new Vector2(0, oPos.y - myPos.y).normalized;
+        
+        return relPos;
     }
 }
