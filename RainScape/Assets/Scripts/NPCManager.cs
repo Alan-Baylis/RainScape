@@ -21,7 +21,8 @@ public class NPCManager : MonoBehaviour
         
         var npcObject = Instantiate(npcPrefab) as GameObject;
         var spriteSize = npcObject.GetComponent<SpriteRenderer>().bounds.size;
-        /*
+        
+        /* change back to this later
         float spriteToCellSizeRatio;
         if (map.GetCellWidth() <= map.GetCellHeight())
         {
@@ -49,6 +50,43 @@ public class NPCManager : MonoBehaviour
         Destroy(npcObject);
         
         StartCoroutine(SpawnNPC());
+        
+        // TEST
+        /*
+        {
+            var spawnPoint = spawnPoints[0];
+            spawnPoint.position = new Vector2(2.0f, 1.4f);
+            var destPoint = destPoints[0];
+
+            var npcObjecttest = Instantiate(npcPrefab) as GameObject;
+            var npcScript = npcObjecttest.GetComponent<NPCMovement>();
+            npcScript.spawnPoint = spawnPoint;
+            npcScript.destPoint = destPoint;
+            npcScript.map = map;
+            npcScript.npcManager = this;
+            
+            npcObjecttest.transform.localScale = npcSpriteScale;
+            
+            npcs.Add(npcObjecttest.GetInstanceID(), npcObjecttest);
+        }
+        
+        {
+            var spawnPoint = destPoints[0];
+            spawnPoint.position = new Vector2(2.0f, 1.4f);
+            var destPoint = spawnPoints[0];
+            
+            var npcObjecttest = Instantiate(npcPrefab) as GameObject;
+            var npcScript = npcObjecttest.GetComponent<NPCMovement>();
+            npcScript.spawnPoint = spawnPoint;
+            npcScript.destPoint = destPoint;
+            npcScript.map = map;
+            npcScript.npcManager = this;
+            
+            npcObjecttest.transform.localScale = npcSpriteScale;
+            
+            npcs.Add(npcObjecttest.GetInstanceID(), npcObjecttest);
+        }
+        */
     }
     
     IEnumerator SpawnNPC()
@@ -59,7 +97,7 @@ public class NPCManager : MonoBehaviour
             
             var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
             var destPoint = destPoints[Random.Range(0, destPoints.Length)];
-            
+
             if (Random.Range(0, 2) == 1)
             {
                 var temp = spawnPoint;
@@ -77,6 +115,7 @@ public class NPCManager : MonoBehaviour
             npcObject.transform.localScale = npcSpriteScale;
             
             npcs.Add(npcObject.GetInstanceID(), npcObject);
+            
         }
     }
     
